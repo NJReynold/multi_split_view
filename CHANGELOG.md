@@ -1,4 +1,4 @@
-## 3.6.1-rc.2
+## 3.6.1
 
 * Bugfix
   * When the `antiAliasingWorkaround` option is enabled, it may cut off the last pixel on the right in certain cases.
