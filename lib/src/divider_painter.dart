@@ -9,10 +9,7 @@ class DividerPainters {
       Color? color,
       Color? highlightedColor}) {
     return DividerPainter(
-        animationEnabled: animationEnabled,
-        animationDuration: animationDuration,
-        backgroundColor: color,
-        highlightedBackgroundColor: highlightedColor);
+        animationEnabled: animationEnabled, animationDuration: animationDuration, backgroundColor: color, highlightedBackgroundColor: highlightedColor);
   }
 
   /// Builds a dashed divider painter.
@@ -123,11 +120,8 @@ class DividerPainter {
   /// Builds a tween map for animations.
   Map<int, Tween> buildTween() {
     Map<int, Tween> map = Map<int, Tween>();
-    if (animationEnabled &&
-        backgroundColor != null &&
-        highlightedBackgroundColor != null) {
-      map[DividerPainter.backgroundKey] =
-          ColorTween(begin: backgroundColor, end: highlightedBackgroundColor);
+    if (animationEnabled && backgroundColor != null && highlightedBackgroundColor != null) {
+      map[DividerPainter.backgroundKey] = ColorTween(begin: backgroundColor, end: highlightedBackgroundColor);
     }
     return map;
   }
@@ -142,7 +136,7 @@ class DividerPainter {
       required Map<int, dynamic> animatedValues}) {
     Color? color = backgroundColor;
     if (animationEnabled && animatedValues.containsKey(backgroundKey)) {
-      color = animatedValues[backgroundKey];
+      color = animatedValues[backgroundKey] as Color;
     } else if (highlighted && highlightedBackgroundColor != null) {
       color = highlightedBackgroundColor;
     }
@@ -152,8 +146,7 @@ class DividerPainter {
         ..style = PaintingStyle.fill
         ..color = color
         ..isAntiAlias = true;
-      canvas.drawRect(
-          Rect.fromLTWH(0, 0, dividerSize.width, dividerSize.height), paint);
+      canvas.drawRect(Rect.fromLTWH(0, 0, dividerSize.width, dividerSize.height), paint);
     }
   }
 
@@ -168,11 +161,7 @@ class DividerPainter {
           animationDuration == other.animationDuration;
 
   @override
-  int get hashCode =>
-      animationEnabled.hashCode ^
-      backgroundColor.hashCode ^
-      highlightedBackgroundColor.hashCode ^
-      animationDuration.hashCode;
+  int get hashCode => animationEnabled.hashCode ^ backgroundColor.hashCode ^ highlightedBackgroundColor.hashCode ^ animationDuration.hashCode;
 }
 
 /// Divider with dashes.
@@ -208,12 +197,10 @@ class _DashedDividerPainter extends DividerPainter {
       throw Exception('The thickness parameter must be positive: $thickness');
     }
     if (highlightedThickness != null && highlightedThickness! <= 0) {
-      throw Exception(
-          'The highlightedThickness parameter must be positive: $highlightedThickness');
+      throw Exception('The highlightedThickness parameter must be positive: $highlightedThickness');
     }
     if (highlightedGap != null && highlightedGap! <= 0) {
-      throw Exception(
-          'The highlightedGap parameter must be positive: $highlightedGap');
+      throw Exception('The highlightedGap parameter must be positive: $highlightedGap');
     }
   }
 
@@ -235,15 +222,10 @@ class _DashedDividerPainter extends DividerPainter {
       required Size dividerSize,
       required Map<int, dynamic> animatedValues}) {
     super.paint(
-        dividerAxis: dividerAxis,
-        resizable: resizable,
-        highlighted: highlighted,
-        canvas: canvas,
-        dividerSize: dividerSize,
-        animatedValues: animatedValues);
+        dividerAxis: dividerAxis, resizable: resizable, highlighted: highlighted, canvas: canvas, dividerSize: dividerSize, animatedValues: animatedValues);
     Color? _color;
     if (animationEnabled && animatedValues.containsKey(colorKey)) {
-      _color = animatedValues[colorKey];
+      _color = animatedValues[colorKey] as Color;
     } else if (highlighted && highlightedColor != null) {
       _color = highlightedColor!;
     } else {
@@ -253,7 +235,7 @@ class _DashedDividerPainter extends DividerPainter {
     if (_color != null) {
       double _thickness = thickness;
       if (animationEnabled && animatedValues.containsKey(thicknessKey)) {
-        _thickness = animatedValues[thicknessKey];
+        _thickness = animatedValues[thicknessKey] as double;
       } else if (highlighted && highlightedThickness != null) {
         _thickness = highlightedThickness!;
       }
@@ -266,15 +248,13 @@ class _DashedDividerPainter extends DividerPainter {
       if (dividerAxis == Axis.vertical) {
         double startY = 0;
         while (startY < dividerSize.height) {
-          canvas.drawLine(Offset(dividerSize.width / 2, startY),
-              Offset(dividerSize.width / 2, startY + size), paint);
+          canvas.drawLine(Offset(dividerSize.width / 2, startY), Offset(dividerSize.width / 2, startY + size), paint);
           startY += size + gap;
         }
       } else {
         double startX = 0;
         while (startX < dividerSize.width) {
-          canvas.drawLine(Offset(startX, dividerSize.height / 2),
-              Offset(startX + size, dividerSize.height / 2), paint);
+          canvas.drawLine(Offset(startX, dividerSize.height / 2), Offset(startX + size, dividerSize.height / 2), paint);
           startX += size + gap;
         }
       }
@@ -289,8 +269,7 @@ class _DashedDividerPainter extends DividerPainter {
         map[colorKey] = ColorTween(begin: color, end: highlightedColor);
       }
       if (highlightedThickness != null) {
-        map[thicknessKey] =
-            Tween<double>(begin: thickness, end: highlightedThickness);
+        map[thicknessKey] = Tween<double>(begin: thickness, end: highlightedThickness);
       }
     }
     return map;
@@ -354,12 +333,10 @@ class _GroovedDividerPainter1 extends DividerPainter {
       throw Exception('The thickness parameter must be positive: $thickness');
     }
     if (highlightedThickness != null && highlightedThickness! <= 0) {
-      throw Exception(
-          'The highlightedThickness parameter must be positive: $highlightedThickness');
+      throw Exception('The highlightedThickness parameter must be positive: $highlightedThickness');
     }
     if (highlightedSize != null && highlightedSize! <= 0) {
-      throw Exception(
-          'The highlightedSize parameter must be positive: $highlightedSize');
+      throw Exception('The highlightedSize parameter must be positive: $highlightedSize');
     }
   }
 
@@ -380,15 +357,10 @@ class _GroovedDividerPainter1 extends DividerPainter {
       required Size dividerSize,
       required Map<int, dynamic> animatedValues}) {
     super.paint(
-        dividerAxis: dividerAxis,
-        resizable: resizable,
-        highlighted: highlighted,
-        canvas: canvas,
-        dividerSize: dividerSize,
-        animatedValues: animatedValues);
+        dividerAxis: dividerAxis, resizable: resizable, highlighted: highlighted, canvas: canvas, dividerSize: dividerSize, animatedValues: animatedValues);
     Color? _color;
     if (animationEnabled && animatedValues.containsKey(colorKey)) {
-      _color = animatedValues[colorKey];
+      _color = animatedValues[colorKey] as Color;
     } else if (highlighted && highlightedColor != null) {
       _color = highlightedColor!;
     } else {
@@ -398,13 +370,13 @@ class _GroovedDividerPainter1 extends DividerPainter {
     if (_color != null) {
       double _thickness = thickness;
       if (animationEnabled && animatedValues.containsKey(thicknessKey)) {
-        _thickness = animatedValues[thicknessKey];
+        _thickness = animatedValues[thicknessKey] as double;
       } else if (highlighted && highlightedThickness != null) {
         _thickness = highlightedThickness!;
       }
       double _size = size;
       if (animationEnabled && animatedValues.containsKey(sizeKey)) {
-        _size = animatedValues[sizeKey];
+        _size = animatedValues[sizeKey] as double;
       } else if (highlighted && highlightedSize != null) {
         _size = highlightedSize!;
       }
@@ -416,12 +388,10 @@ class _GroovedDividerPainter1 extends DividerPainter {
         ..isAntiAlias = true;
       if (dividerAxis == Axis.vertical) {
         double startY = (dividerSize.height - _size) / 2;
-        canvas.drawLine(Offset(dividerSize.width / 2, startY),
-            Offset(dividerSize.width / 2, startY + _size), paint);
+        canvas.drawLine(Offset(dividerSize.width / 2, startY), Offset(dividerSize.width / 2, startY + _size), paint);
       } else {
         double startX = (dividerSize.width - _size) / 2;
-        canvas.drawLine(Offset(startX, dividerSize.height / 2),
-            Offset(startX + _size, dividerSize.height / 2), paint);
+        canvas.drawLine(Offset(startX, dividerSize.height / 2), Offset(startX + _size, dividerSize.height / 2), paint);
       }
     }
   }
@@ -434,8 +404,7 @@ class _GroovedDividerPainter1 extends DividerPainter {
         map[colorKey] = ColorTween(begin: color, end: highlightedColor);
       }
       if (highlightedThickness != null) {
-        map[thicknessKey] =
-            Tween<double>(begin: thickness, end: highlightedThickness);
+        map[thicknessKey] = Tween<double>(begin: thickness, end: highlightedThickness);
       }
       if (highlightedSize != null) {
         map[sizeKey] = Tween<double>(begin: size, end: highlightedSize);
@@ -513,8 +482,7 @@ class _GroovedDividerPainter2 extends DividerPainter {
         throw Exception('The highlightedCount parameter must be odd');
       }
       if (highlightedCount! < 1) {
-        throw Exception(
-            'The highlightedCount parameter must be bigger than 1: $highlightedCount');
+        throw Exception('The highlightedCount parameter must be bigger than 1: $highlightedCount');
       }
     }
   }
@@ -537,15 +505,10 @@ class _GroovedDividerPainter2 extends DividerPainter {
       required Size dividerSize,
       required Map<int, dynamic> animatedValues}) {
     super.paint(
-        dividerAxis: dividerAxis,
-        resizable: resizable,
-        highlighted: highlighted,
-        canvas: canvas,
-        dividerSize: dividerSize,
-        animatedValues: animatedValues);
+        dividerAxis: dividerAxis, resizable: resizable, highlighted: highlighted, canvas: canvas, dividerSize: dividerSize, animatedValues: animatedValues);
     Color? _color;
     if (animationEnabled && animatedValues.containsKey(colorKey)) {
-      _color = animatedValues[colorKey];
+      _color = animatedValues[colorKey] as Color;
     } else if (highlighted && highlightedColor != null) {
       _color = highlightedColor!;
     } else {
@@ -555,7 +518,7 @@ class _GroovedDividerPainter2 extends DividerPainter {
     if (_color != null) {
       int _count = count;
       if (animationEnabled && animatedValues.containsKey(countKey)) {
-        _count = animatedValues[countKey];
+        _count = animatedValues[countKey] as int;
         if (_count.isEven) {
           _count--;
         }
@@ -575,15 +538,13 @@ class _GroovedDividerPainter2 extends DividerPainter {
         double startY = (dividerSize.height - groovesSize) / 2;
         double x = (dividerSize.width - size) / 2;
         for (int i = 0; i < _count; i++) {
-          canvas.drawLine(Offset(x, startY + (gap * i)),
-              Offset(x + size, startY + (gap * i)), paint);
+          canvas.drawLine(Offset(x, startY + (gap * i)), Offset(x + size, startY + (gap * i)), paint);
         }
       } else {
         double startX = (dividerSize.width - groovesSize) / 2;
         double y = (dividerSize.height - size) / 2;
         for (int i = 0; i < _count; i++) {
-          canvas.drawLine(Offset(startX + (gap * i), y),
-              Offset(startX + (gap * i), y + size), paint);
+          canvas.drawLine(Offset(startX + (gap * i), y), Offset(startX + (gap * i), y + size), paint);
         }
       }
     }

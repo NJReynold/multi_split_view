@@ -14,7 +14,7 @@ class MultiSplitViewController extends ChangeNotifier {
   ///
   /// Changes the flex to 1 if the total flex of the areas is 0.
   MultiSplitViewController(
-      {List<Area>? areas, AreaDataModifier? areaDataModifier})
+      {List<Area>? areas, AreaDataModifier? areaDataModifier,})
       : _areaDataModifier = areaDataModifier {
     if (areas != null) {
       _areas = List.from(areas);

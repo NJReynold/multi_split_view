@@ -20,15 +20,15 @@ import 'package:multi_split_view/src/internal/num_util.dart';
 ///
 /// * If all areas are using size, they will all be converted to use flex.
 class Area extends ChangeNotifier {
-  Area(
-      {double? size,
-      double? flex,
-      double? min,
-      double? max,
-      dynamic id,
-      this.data,
-      this.builder})
-      : this.id = id != null ? id : AreaId._() {
+  Area({
+    double? size,
+    double? flex,
+    double? min,
+    double? max,
+    dynamic id,
+    this.data,
+    this.builder,
+  }) : this.id = id != null ? id : AreaId._() {
     if (size != null && flex != null) {
       throw ArgumentError('Cannot provide both a size and a flex.');
     }
@@ -43,8 +43,7 @@ class Area extends ChangeNotifier {
 
   void _checkMinMax() {
     if (_min != null && _max != null && _max! < _min!) {
-      throw ArgumentError(
-          'The max($_max) needs to be greater than min($_min).');
+      throw ArgumentError('The max($_max) needs to be greater than min($_min).');
     }
   }
 
@@ -114,8 +113,7 @@ class Area extends ChangeNotifier {
   }
 
   /// Sets the area size value without notify listeners.
-  void _setSizeWithoutNotify(
-      {required double? value, required bool useMin, required bool useMax}) {
+  void _setSizeWithoutNotify({required double? value, required bool useMin, required bool useMax}) {
     NumUtil.validateDouble('size', value);
     if (value != null) {
       value = NumUtil.fix('size', value);
@@ -151,8 +149,7 @@ class Area extends ChangeNotifier {
   }
 
   /// Sets the area flex value without notify listeners.
-  void _setFlexWithoutNotify(
-      {required double? value, required bool useMin, required bool useMax}) {
+  void _setFlexWithoutNotify({required double? value, required bool useMin, required bool useMax}) {
     NumUtil.validateDouble('flex', value);
     if (value != null) {
       value = NumUtil.fix('flex', value);
@@ -234,8 +231,7 @@ class AreaHelper {
     area._index = index;
   }
 
-  static void setHashChanger(
-      {required Area area, required Function? function}) {
+  static void setHashChanger({required Area area, required Function? function}) {
     area._hashChanger = function;
   }
 }
