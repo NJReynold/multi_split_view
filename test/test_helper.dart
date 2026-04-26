@@ -14,33 +14,33 @@ class TestHelper {
       SizeOverflowPolicy sizeOverflowPolicy = SizeOverflowPolicy.shrinkLast,
       SizeUnderflowPolicy sizeUnderflowPolicy = SizeUnderflowPolicy.stretchLast,
       MinSizeRecoveryPolicy minSizeRecoveryPolicy =
-          MinSizeRecoveryPolicy.firstToLast}) {
-    MultiSplitViewController controller =
+          MinSizeRecoveryPolicy.firstToLast,}) {
+    final MultiSplitViewController controller =
         MultiSplitViewController(areas: areas);
-    LayoutConstraints layout = LayoutConstraints(
+    final LayoutConstraints layout = LayoutConstraints(
         controller: controller,
         containerSize: containerSize,
         dividerThickness: dividerThickness,
-        dividerHandleBuffer: dividerHandleBuffer);
-    ControllerHelper controllerHelper = ControllerHelper(controller);
+        dividerHandleBuffer: dividerHandleBuffer,);
+    final ControllerHelper controllerHelper = ControllerHelper(controller);
     layout.adjustAreas(
         controllerHelper: controllerHelper,
         sizeOverflowPolicy: sizeOverflowPolicy,
         sizeUnderflowPolicy: sizeUnderflowPolicy,
-        minSizeRecoveryPolicy: minSizeRecoveryPolicy);
+        minSizeRecoveryPolicy: minSizeRecoveryPolicy,);
 
     expect(controller.areasCount, areas.length);
 
-    TestHelper helper = TestHelper._(controller: controller, layout: layout);
+    final TestHelper helper = TestHelper._(controller: controller, layout: layout);
 
     return helper;
   }
 
   TestHelper._(
       {required MultiSplitViewController controller,
-      required LayoutConstraints layout})
-      : this._controller = controller,
-        this._layout = layout;
+      required LayoutConstraints layout,})
+      : _controller = controller,
+        _layout = layout;
 
   final MultiSplitViewController _controller;
   final LayoutConstraints _layout;
@@ -49,13 +49,13 @@ class TestHelper {
       {required int dividerIndex,
       required double pixels,
       required bool pushDividers,
-      required double rest}) {
-    double rest = DividerUtil.move(
+      required double rest,}) {
+    final double rest = DividerUtil.move(
         controller: _controller,
         layoutConstraints: _layout,
         dividerIndex: dividerIndex,
         pixels: pixels,
-        pushDividers: pushDividers);
+        pushDividers: pushDividers,);
 
     expect(rest, rest, reason: 'rest');
   }
@@ -65,8 +65,8 @@ class TestHelper {
       required double? flex,
       required double? size,
       required double? min,
-      required double? max}) {
-    Area area = _controller.getArea(index);
+      required double? max,}) {
+    final Area area = _controller.getArea(index);
     testArea(area, data: data, min: min, max: max, flex: flex, size: size);
   }
 
@@ -75,7 +75,7 @@ class TestHelper {
       required double? flex,
       required double? size,
       required double? min,
-      required double? max}) {
+      required double? max,}) {
     expect(area.data, data, reason: 'data');
     expect(area.min, min, reason: 'min');
     expect(area.max, max, reason: 'max');

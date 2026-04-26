@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:multi_split_view/multi_split_view.dart' show MultiSplitView, MultiSplitViewTheme;
 import 'package:multi_split_view/src/divider_painter.dart';
 import 'package:multi_split_view/src/theme_data.dart';
 
@@ -11,12 +12,7 @@ import 'package:multi_split_view/src/theme_data.dart';
 /// tooltip widget).
 class DividerWidget extends StatefulWidget {
   const DividerWidget(
-      {required this.axis,
-      required this.index,
-      required this.themeData,
-      required this.resizable,
-      required this.dragging,
-      required this.highlighted});
+      {required this.axis, required this.index, required this.themeData, required this.resizable, required this.dragging, required this.highlighted, Key? key,}) : super(key: key);
 
   final Axis axis;
   final int index;
@@ -33,7 +29,7 @@ class DividerWidget extends StatefulWidget {
 class _DividerWidgetState extends State<DividerWidget>
     with TickerProviderStateMixin {
   AnimationController? controller;
-  Map<int, Animation> animations = Map<int, Animation>();
+  Map<int, Animation> animations = <int, Animation>{};
 
   @override
   void initState() {
@@ -45,11 +41,11 @@ class _DividerWidgetState extends State<DividerWidget>
   void didUpdateWidget(covariant DividerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     _initializeAnimations(oldWidget);
-    if (oldWidget.dragging && widget.dragging == false) {
+    if (oldWidget.dragging && !widget.dragging) {
       controller?.reverse();
-    } else if (oldWidget.highlighted == false && widget.highlighted) {
+    } else if (!oldWidget.highlighted && widget.highlighted) {
       controller?.forward();
-    } else if (oldWidget.highlighted && widget.highlighted == false) {
+    } else if (oldWidget.highlighted && !widget.highlighted) {
       controller?.reverse();
     }
   }
@@ -65,10 +61,10 @@ class _DividerWidgetState extends State<DividerWidget>
           widget.themeData.dividerPainter!.animationEnabled) {
         controller = AnimationController(
             duration: widget.themeData.dividerPainter!.animationDuration,
-            vsync: this);
-        DividerPainter dividerPainter = widget.themeData.dividerPainter!;
+            vsync: this,);
+        final DividerPainter dividerPainter = widget.themeData.dividerPainter!;
 
-        Map<int, Tween> tweenMap = dividerPainter.buildTween();
+        final Map<int, Tween> tweenMap = dividerPainter.buildTween();
         tweenMap.forEach((key, tween) {
           animations[key] = tween.animate(controller!);
         });
@@ -88,19 +84,19 @@ class _DividerWidgetState extends State<DividerWidget>
   Widget build(BuildContext context) {
     Widget dividerWidget;
     if (widget.themeData.dividerPainter != null) {
-      Map<int, dynamic> animatedValues = Map<int, dynamic>();
+      final Map<int, dynamic> animatedValues = <int, dynamic>{};
       animations.forEach((key, animation) {
         animatedValues[key] = animation.value;
       });
 
       dividerWidget = CustomPaint(
-          child: Container(),
           painter: _DividerPainterWrapper(
               axis: widget.axis,
               resizable: widget.resizable,
               highlighted: widget.highlighted,
               dividerPainter: widget.themeData.dividerPainter!,
-              animatedValues: animatedValues));
+              animatedValues: animatedValues,),
+          child: Container(),);
     } else {
       dividerWidget = Container();
     }
@@ -122,7 +118,7 @@ class _DividerPainterWrapper extends CustomPainter {
       required this.resizable,
       required this.highlighted,
       required this.dividerPainter,
-      required this.animatedValues});
+      required this.animatedValues,});
 
   /// The divider axis
   final Axis axis;
@@ -139,7 +135,7 @@ class _DividerPainterWrapper extends CustomPainter {
         highlighted: highlighted,
         canvas: canvas,
         dividerSize: size,
-        animatedValues: animatedValues);
+        animatedValues: animatedValues,);
   }
 
   @override

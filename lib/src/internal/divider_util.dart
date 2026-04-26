@@ -1,10 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:meta/meta.dart';
+import 'package:multi_split_view/multi_split_view.dart' show MultiSplitView;
 import 'package:multi_split_view/src/area.dart';
 import 'package:multi_split_view/src/controller.dart';
 import 'package:multi_split_view/src/internal/layout_constraints.dart';
 import 'package:multi_split_view/src/internal/num_util.dart';
+import 'package:multi_split_view/src/multi_split_view.dart' show MultiSplitView;
 
 /// Represents divider util used by the [MultiSplitView].
 @internal
@@ -14,7 +16,7 @@ class DividerUtil {
       required LayoutConstraints layoutConstraints,
       required int dividerIndex,
       required double pixels,
-      required bool pushDividers}) {
+      required bool pushDividers,}) {
     if (pixels == 0) {
       return 0;
     }
@@ -28,7 +30,7 @@ class DividerUtil {
               layoutConstraints: layoutConstraints,
               shrinkAreaIndex: dividerIndex,
               growAreaIndex: dividerIndex + 1,
-              pushDividers: pushDividers) *
+              pushDividers: pushDividers,) *
           -1;
     } else {
       rest = _resizeAreas(
@@ -38,7 +40,7 @@ class DividerUtil {
           layoutConstraints: layoutConstraints,
           shrinkAreaIndex: dividerIndex + 1,
           growAreaIndex: dividerIndex,
-          pushDividers: pushDividers);
+          pushDividers: pushDividers,);
     }
     return rest;
   }
@@ -50,10 +52,10 @@ class DividerUtil {
       required LayoutConstraints layoutConstraints,
       required int shrinkAreaIndex,
       required int growAreaIndex,
-      required bool pushDividers}) {
-    Area shrinkArea = controller.getArea(shrinkAreaIndex);
+      required bool pushDividers,}) {
+    final Area shrinkArea = controller.getArea(shrinkAreaIndex);
 
-    Area growArea = controller.getArea(growAreaIndex);
+    final Area growArea = controller.getArea(growAreaIndex);
 
     final double availableSizeForFlexAreas =
         layoutConstraints.calculateAvailableSpaceForFlexAreas(controller);
@@ -72,11 +74,11 @@ class DividerUtil {
       // both flex
       movedPixels = math.min(
           flexToAvailablePixelsToShrink(
-              area: shrinkArea, pixelsPerFlex: pixelsPerFlex),
-          movedPixels);
+              area: shrinkArea, pixelsPerFlex: pixelsPerFlex,),
+          movedPixels,);
 
       final double? availablePixelsToMax = flexToAvailablePixelsToMax(
-          area: growArea, pixelsPerFlex: pixelsPerFlex);
+          area: growArea, pixelsPerFlex: pixelsPerFlex,);
       if (availablePixelsToMax != null) {
         movedPixels = math.min(availablePixelsToMax, movedPixels);
       }
@@ -107,7 +109,7 @@ class DividerUtil {
 
     if (shrinkArea.size != null) {
       AreaHelper.setSize(
-          area: shrinkArea, size: shrinkArea.size! - movedPixels);
+          area: shrinkArea, size: shrinkArea.size! - movedPixels,);
     }
     if (growArea.size != null) {
       AreaHelper.setSize(area: growArea, size: growArea.size! + movedPixels);
@@ -115,14 +117,14 @@ class DividerUtil {
     if (bothFlex && shrinkArea.flex != null) {
       AreaHelper.setFlex(
           area: shrinkArea,
-          flex: shrinkArea.flex! - (movedPixels * flexPerPixels));
+          flex: shrinkArea.flex! - (movedPixels * flexPerPixels),);
     }
     if (bothFlex && growArea.flex != null) {
       AreaHelper.setFlex(
-          area: growArea, flex: growArea.flex! + (movedPixels * flexPerPixels));
+          area: growArea, flex: growArea.flex! + (movedPixels * flexPerPixels),);
     }
 
-    double rest = pixelsToMove - movedPixels;
+    final double rest = pixelsToMove - movedPixels;
 
     shrinkAreaIndex += direction;
     if (pushDividers &&
@@ -135,13 +137,13 @@ class DividerUtil {
           layoutConstraints: layoutConstraints,
           shrinkAreaIndex: shrinkAreaIndex,
           growAreaIndex: growAreaIndex,
-          pushDividers: pushDividers);
+          pushDividers: pushDividers,);
     }
     return rest;
   }
 
   static double flexToAvailablePixelsToShrink(
-      {required Area area, required double pixelsPerFlex}) {
+      {required Area area, required double pixelsPerFlex,}) {
     final double size = area.flex! * pixelsPerFlex;
     final double? minSize =
         area.min != null ? (area.min! * pixelsPerFlex) : null;
@@ -153,7 +155,7 @@ class DividerUtil {
   }
 
   static double? flexToAvailablePixelsToMax(
-      {required Area area, required double pixelsPerFlex}) {
+      {required Area area, required double pixelsPerFlex,}) {
     if (area.max == null) {
       return null;
     }

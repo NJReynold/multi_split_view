@@ -14,7 +14,6 @@ import 'package:multi_split_view/src/theme_widget.dart';
 
 /// A widget to provides horizontal or vertical multiple split view.
 class MultiSplitView extends StatefulWidget {
-  static const Axis defaultAxis = Axis.horizontal;
 
   /// Creates an [MultiSplitView].
   ///
@@ -40,8 +39,9 @@ class MultiSplitView extends StatefulWidget {
       this.fallbackWidth = 500,
       this.fallbackHeight = 500,
       this.builder,
-      this.areaClipBehavior = Clip.hardEdge})
+      this.areaClipBehavior = Clip.hardEdge,})
       : super(key: key);
+  static const Axis defaultAxis = Axis.horizontal;
 
   final Axis axis;
   final MultiSplitViewController? controller;
@@ -121,7 +121,7 @@ class _MultiSplitViewState extends State<MultiSplitView> {
 
   _DraggingDivider? _draggingDivider;
 
-  ValueNotifier<int?> _hoverDividerIndex = ValueNotifier<int?>(null);
+  final ValueNotifier<int?> _hoverDividerIndex = ValueNotifier<int?>(null);
 
   Object? _lastAreasHash;
 
@@ -156,7 +156,7 @@ class _MultiSplitViewState extends State<MultiSplitView> {
   void didUpdateWidget(MultiSplitView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != _controller) {
-      List<Area> areas = _controller.areas;
+      final List<Area> areas = _controller.areas;
       ControllerHelper.setStateHashCode(_controller, null);
       _controller.removeListener(_rebuild);
 
@@ -177,10 +177,10 @@ class _MultiSplitViewState extends State<MultiSplitView> {
 
   @override
   Widget build(BuildContext context) {
-    MultiSplitViewThemeData themeData = MultiSplitViewTheme.of(context);
+    final MultiSplitViewThemeData themeData = MultiSplitViewTheme.of(context);
 
     return LayoutBuilder(builder: (context, constraints) {
-      ControllerHelper controllerHelper = ControllerHelper(_controller);
+      final ControllerHelper controllerHelper = ControllerHelper(_controller);
 
       final double containerSize = widget.axis == Axis.horizontal ? constraints.maxWidth : constraints.maxHeight;
 
@@ -192,19 +192,19 @@ class _MultiSplitViewState extends State<MultiSplitView> {
             controller: _controller,
             containerSize: containerSize,
             dividerThickness: themeData.dividerThickness,
-            dividerHandleBuffer: themeData.dividerHandleBuffer);
+            dividerHandleBuffer: themeData.dividerHandleBuffer,);
         _layoutConstraints!.adjustAreas(
             controllerHelper: controllerHelper,
             sizeOverflowPolicy: widget.sizeOverflowPolicy,
             sizeUnderflowPolicy: widget.sizeUnderflowPolicy,
-            minSizeRecoveryPolicy: widget.minSizeRecoveryPolicy);
+            minSizeRecoveryPolicy: widget.minSizeRecoveryPolicy,);
         _lastAreasHash = controllerHelper.areasHash;
       }
 
-      List<Widget> children = [];
+      final List<Widget> children = [];
 
       for (int index = 0; index < _controller.areasCount; index++) {
-        Area area = _controller.getArea(index);
+        final Area area = _controller.getArea(index);
 
         // area widget
         Widget child;
@@ -216,7 +216,7 @@ class _MultiSplitViewState extends State<MultiSplitView> {
           child = Container();
         }
 
-        child = IgnorePointer(child: child, ignoring: _draggingDivider != null);
+        child = IgnorePointer(ignoring: _draggingDivider != null, child: child);
 
         MouseCursor cursor = MouseCursor.defer;
         if (_draggingDivider != null) {
@@ -224,9 +224,9 @@ class _MultiSplitViewState extends State<MultiSplitView> {
         }
         child = MouseRegion(
             cursor: cursor,
-            child: child,
             opaque: _draggingDivider != null,
-            hitTestBehavior: _draggingDivider != null ? HitTestBehavior.opaque : HitTestBehavior.translucent);
+            hitTestBehavior: _draggingDivider != null ? HitTestBehavior.opaque : HitTestBehavior.translucent,
+            child: child,);
         children.insert(
           0,
           LayoutId(
@@ -245,22 +245,22 @@ class _MultiSplitViewState extends State<MultiSplitView> {
               child: ValueListenableBuilder(
                   valueListenable: _hoverDividerIndex,
                   builder: (context, indexHover, child) {
-                    bool highlighted = (_draggingDivider?.index == index || (_draggingDivider == null && _hoverDividerIndex.value == index));
+                    final bool highlighted = _draggingDivider?.index == index || (_draggingDivider == null && _hoverDividerIndex.value == index);
                     Widget dividerWidget = widget.dividerBuilder != null
                         ? widget.dividerBuilder!(widget.axis == Axis.horizontal ? Axis.vertical : Axis.horizontal, index, widget.resizable,
-                            _draggingDivider?.index == index, highlighted, themeData)
+                            _draggingDivider?.index == index, highlighted, themeData,)
                         : DividerWidget(
                             axis: widget.axis == Axis.horizontal ? Axis.vertical : Axis.horizontal,
                             index: index,
                             themeData: themeData,
                             highlighted: highlighted,
                             resizable: widget.resizable,
-                            dragging: _draggingDivider?.index == index);
+                            dragging: _draggingDivider?.index == index,);
                     if (widget.resizable) {
                       if (themeData.dividerHandleBuffer > 0) {
                         // handle buffer around the divider
-                        double lr = widget.axis == Axis.vertical ? 0 : themeData.dividerHandleBuffer;
-                        double tb = widget.axis == Axis.horizontal ? 0 : themeData.dividerHandleBuffer;
+                        final double lr = widget.axis == Axis.vertical ? 0 : themeData.dividerHandleBuffer;
+                        final double tb = widget.axis == Axis.horizontal ? 0 : themeData.dividerHandleBuffer;
                         dividerWidget = Padding(padding: EdgeInsets.fromLTRB(lr, tb, lr, tb), child: dividerWidget);
                       }
                       dividerWidget = GestureDetector(
@@ -269,37 +269,37 @@ class _MultiSplitViewState extends State<MultiSplitView> {
                           onDoubleTap: widget.onDividerDoubleTap != null ? () => widget.onDividerDoubleTap!(index) : null,
                           onHorizontalDragDown: widget.axis == Axis.vertical ? null : (detail) => _onDragDown(detail, index),
                           onHorizontalDragStart: widget.axis == Axis.vertical ? null : (detail) => _onDragStart(index),
-                          onHorizontalDragCancel: widget.axis == Axis.vertical ? null : () => _onDragCancel(),
+                          onHorizontalDragCancel: widget.axis == Axis.vertical ? null : _onDragCancel,
                           onHorizontalDragEnd: widget.axis == Axis.vertical ? null : (detail) => _onDragEnd(index),
                           onHorizontalDragUpdate: widget.axis == Axis.vertical ? null : (detail) => _onDragUpdate(detail, index, controllerHelper),
                           onVerticalDragDown: widget.axis == Axis.horizontal ? null : (detail) => _onDragDown(detail, index),
                           onVerticalDragStart: widget.axis == Axis.horizontal ? null : (detail) => _onDragStart(index),
-                          onVerticalDragCancel: widget.axis == Axis.horizontal ? null : () => _onDragCancel(),
+                          onVerticalDragCancel: widget.axis == Axis.horizontal ? null : _onDragCancel,
                           onVerticalDragEnd: widget.axis == Axis.horizontal ? null : (detail) => _onDragEnd(index),
                           onVerticalDragUpdate: widget.axis == Axis.horizontal ? null : (detail) => _onDragUpdate(detail, index, controllerHelper),
-                          child: dividerWidget);
+                          child: dividerWidget,);
                       dividerWidget = _mouseRegion(
                           index: index,
                           axis: widget.axis == Axis.horizontal ? Axis.vertical : Axis.horizontal,
                           dividerWidget: dividerWidget,
-                          themeData: themeData);
+                          themeData: themeData,);
                     }
                     return dividerWidget;
-                  })));
+                  },),),);
         }
       }
       return LimitedBox(
           maxWidth: widget.fallbackWidth,
           maxHeight: widget.fallbackHeight,
           child: CustomMultiChildLayout(
-              children: children,
               delegate: LayoutDelegate(
-                  controller: _controller, axis: widget.axis, layoutConstraints: _layoutConstraints!, antiAliasingWorkaround: widget.antiAliasingWorkaround)));
-    });
+                  controller: _controller, axis: widget.axis, layoutConstraints: _layoutConstraints!, antiAliasingWorkaround: widget.antiAliasingWorkaround,),
+              children: children,),);
+    },);
   }
 
   /// Updates the hover divider index.
-  void _updatesHoverDividerIndex({int? index, required MultiSplitViewThemeData themeData}) {
+  void _updatesHoverDividerIndex({required MultiSplitViewThemeData themeData, int? index}) {
     if (_hoverDividerIndex.value != index && (themeData.dividerPainter != null || widget.dividerBuilder != null)) {
       _hoverDividerIndex.value = index;
     }
@@ -338,7 +338,7 @@ class _MultiSplitViewState extends State<MultiSplitView> {
         layoutConstraints: _layoutConstraints!,
         dividerIndex: index,
         pixels: newDividerStart - lastDividerStart,
-        pushDividers: widget.pushDividers);
+        pushDividers: widget.pushDividers,);
 
     controllerHelper.notifyListeners();
     if (widget.onDividerDragUpdate != null) {
@@ -456,17 +456,17 @@ class _MultiSplitViewState extends State<MultiSplitView> {
 
   /// Wraps the divider widget with a [MouseRegion].
   Widget _mouseRegion({required int index, required Axis axis, required Widget dividerWidget, required MultiSplitViewThemeData themeData}) {
-    MouseCursor cursor = axis == Axis.horizontal ? SystemMouseCursors.resizeRow : SystemMouseCursors.resizeColumn;
+    final MouseCursor cursor = axis == Axis.horizontal ? SystemMouseCursors.resizeRow : SystemMouseCursors.resizeColumn;
     return MouseRegion(
         cursor: cursor,
         onEnter: (event) => _updatesHoverDividerIndex(index: index, themeData: themeData),
         onExit: (event) => _updatesHoverDividerIndex(themeData: themeData),
-        child: dividerWidget);
+        child: dividerWidget,);
   }
 
   /// Builds an [Offset] for cursor position.
   Offset _offset(BuildContext context, Offset globalPosition) {
-    final RenderBox container = context.findRenderObject() as RenderBox;
+    final RenderBox container = context.findRenderObject()! as RenderBox;
     return container.globalToLocal(globalPosition);
   }
 }

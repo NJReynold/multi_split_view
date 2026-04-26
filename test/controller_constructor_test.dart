@@ -11,28 +11,28 @@ void main() {
             MultiSplitViewController(areas: [Area(flex: 0, max: 2)]);
         expect(controller.areasCount, 1);
         TestHelper.testArea(controller.getArea(0),
-            data: null, flex: 0, size: null, min: null, max: 2);
+            data: null, flex: 0, size: null, min: null, max: 2,);
 
         controller = MultiSplitViewController(
-            areas: [Area(flex: 0, max: 2), Area(flex: 0)]);
+            areas: [Area(flex: 0, max: 2), Area(flex: 0)],);
         expect(controller.areasCount, 2);
         TestHelper.testArea(controller.getArea(0),
-            data: null, flex: 0, size: null, min: null, max: 2);
+            data: null, flex: 0, size: null, min: null, max: 2,);
         TestHelper.testArea(controller.getArea(1),
-            data: null, flex: 0, size: null, min: null, max: null);
+            data: null, flex: 0, size: null, min: null, max: null,);
 
         controller = MultiSplitViewController(areas: [
           Area(size: 100, min: 50),
           Area(flex: 0, min: 0),
-          Area(flex: 0, max: 2)
-        ]);
+          Area(flex: 0, max: 2),
+        ],);
         expect(controller.areasCount, 3);
         TestHelper.testArea(controller.getArea(0),
-            data: null, flex: null, size: 100, min: 50, max: null);
+            data: null, flex: null, size: 100, min: 50, max: null,);
         TestHelper.testArea(controller.getArea(1),
-            data: null, flex: 0, size: null, min: 0, max: null);
+            data: null, flex: 0, size: null, min: 0, max: null,);
         TestHelper.testArea(controller.getArea(2),
-            data: null, flex: 0, size: null, min: null, max: 2);
+            data: null, flex: 0, size: null, min: null, max: 2,);
       });
     });
   });

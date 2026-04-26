@@ -7,33 +7,33 @@ void main() {
       test('negative size', () {
         expect(() {
           Area(size: -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'size')));
+        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'size')),);
       });
       test('negative flex', () {
         expect(() {
           Area(flex: -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'flex')));
+        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'flex')),);
       });
       test('negative min', () {
         expect(() {
           Area(min: -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'min')));
+        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'min')),);
       });
       test('negative max', () {
         expect(() {
           Area(max: -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'max')));
+        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'max')),);
       });
       test('default flex', () {
-        Area area = Area();
+        final Area area = Area();
         expect(area.flex, 1);
       });
       test('size', () {
-        Area area = Area(size: 2);
+        final Area area = Area(size: 2);
         expect(area.size, 2);
       });
       test('flex', () {
-        Area area = Area(flex: 2);
+        final Area area = Area(flex: 2);
         expect(area.flex, 2);
       });
       test('flex - min', () {

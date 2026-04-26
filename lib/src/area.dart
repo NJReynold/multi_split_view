@@ -2,8 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:multi_split_view/multi_split_view.dart' show MultiSplitView;
 import 'package:multi_split_view/src/area_widget_builder.dart';
 import 'package:multi_split_view/src/internal/num_util.dart';
+import 'package:multi_split_view/src/multi_split_view.dart' show MultiSplitView;
 
 /// Child area in the [MultiSplitView].
 ///
@@ -28,7 +30,7 @@ class Area extends ChangeNotifier {
     dynamic id,
     this.data,
     this.builder,
-  }) : this.id = id != null ? id : AreaId._() {
+  }) : id = id ?? AreaId._() {
     if (size != null && flex != null) {
       throw ArgumentError('Cannot provide both a size and a flex.');
     }
@@ -59,7 +61,7 @@ class Area extends ChangeNotifier {
   double? _min;
 
   /// Sets the area min value and notify listeners.
-  void set min(double? value) {
+  set min(double? value) {
     _setMinWithoutNotify(value);
     notifyListeners();
   }
@@ -81,7 +83,7 @@ class Area extends ChangeNotifier {
   double? _max;
 
   /// Sets the area max value and notify listeners.
-  void set max(double? value) {
+  set max(double? value) {
     _setMaxWithoutNotify(value);
     notifyListeners();
   }
@@ -104,7 +106,7 @@ class Area extends ChangeNotifier {
   double? get size => _size;
 
   /// Sets the area size value and notify listeners.
-  void set size(double? value) {
+  set size(double? value) {
     if (_flex != null) {
       throw ArgumentError('Cannot provide both a size and a flex.');
     }
@@ -140,7 +142,7 @@ class Area extends ChangeNotifier {
   double? get flex => _flex;
 
   /// Sets the area flex value and notify listeners.
-  void set flex(double? value) {
+  set flex(double? value) {
     if (_size != null) {
       throw ArgumentError('Cannot provide both a size and a flex.');
     }

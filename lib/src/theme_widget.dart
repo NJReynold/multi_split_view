@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:multi_split_view/multi_split_view.dart' show MultiSplitView;
+import 'package:multi_split_view/src/multi_split_view.dart' show MultiSplitView;
 import 'package:multi_split_view/src/theme_data.dart';
 
 /// Applies a [MultiSplitView] theme to descendant widgets.
@@ -10,9 +12,7 @@ class MultiSplitViewTheme extends StatelessWidget {
   ///
   /// The [data] and [child] arguments must not be null.
   const MultiSplitViewTheme({
-    Key? key,
-    required this.child,
-    required this.data,
+    required this.child, required this.data, Key? key,
   }) : super(key: key);
 
   /// Specifies the theme for descendant widgets.
@@ -42,9 +42,7 @@ class MultiSplitViewTheme extends StatelessWidget {
 
 class _InheritedTheme extends InheritedWidget {
   const _InheritedTheme({
-    Key? key,
-    required this.theme,
-    required Widget child,
+    required this.theme, required Widget child, Key? key,
   }) : super(key: key, child: child);
 
   final MultiSplitViewTheme theme;

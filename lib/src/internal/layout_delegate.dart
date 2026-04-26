@@ -9,7 +9,7 @@ class LayoutDelegate extends MultiChildLayoutDelegate {
       {required this.axis,
       required this.controller,
       required this.layoutConstraints,
-      required this.antiAliasingWorkaround});
+      required this.antiAliasingWorkaround,});
 
   final Axis axis;
   final MultiSplitViewController controller;
@@ -18,39 +18,39 @@ class LayoutDelegate extends MultiChildLayoutDelegate {
 
   @override
   void performLayout(Size size) {
-    var onAreaLayout = (
+    Null onAreaLayout(
         {required int index,
         required double start,
-        required double thickness}) {
+        required double thickness,}) {
       if (axis == Axis.horizontal) {
         layoutChild(index,
-            BoxConstraints.tightFor(width: thickness, height: size.height));
+            BoxConstraints.tightFor(width: thickness, height: size.height),);
         positionChild(index, Offset(start, 0));
       } else {
         layoutChild(index,
-            BoxConstraints.tightFor(width: size.width, height: thickness));
+            BoxConstraints.tightFor(width: size.width, height: thickness),);
         positionChild(index, Offset(0, start));
       }
-    };
-    var onDividerLayout = (
+    }
+    Null onDividerLayout(
         {required int index,
         required double start,
-        required double thickness}) {
+        required double thickness,}) {
       if (axis == Axis.horizontal) {
         layoutChild('d$index',
-            BoxConstraints.tightFor(width: thickness, height: size.height));
+            BoxConstraints.tightFor(width: thickness, height: size.height),);
         positionChild('d$index', Offset(start, 0));
       } else {
         layoutChild('d$index',
-            BoxConstraints.tightFor(width: size.width, height: thickness));
+            BoxConstraints.tightFor(width: size.width, height: thickness),);
         positionChild('d$index', Offset(0, start));
       }
-    };
+    }
     layoutConstraints.performLayout(
         controller: controller,
         antiAliasingWorkaround: antiAliasingWorkaround,
         onAreaLayout: onAreaLayout,
-        onDividerLayout: onDividerLayout);
+        onDividerLayout: onDividerLayout,);
   }
 
   @override

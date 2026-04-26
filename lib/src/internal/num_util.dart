@@ -39,8 +39,8 @@ class NumUtil {
   }
 
   static double round(double value) {
-    int places = 6;
-    num mod = math.pow(10.0, places);
-    return ((value * mod).round().toDouble() / mod);
+    const int places = 6;
+    final num mod = math.pow(10.0, places);
+    return (value * mod).round().toDouble() / mod;
   }
 }

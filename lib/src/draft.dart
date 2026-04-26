@@ -10,7 +10,7 @@ class Draft extends StatelessWidget {
       {required this.text,
       required this.color,
       required this.borderColor,
-      Key? key})
+      Key? key,})
       : super(key: key);
 
   factory Draft.blue({String text = 'blue', Key? key}) {
@@ -18,7 +18,7 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.blue[300]!,
         borderColor: Colors.blue[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.yellow({String text = 'yellow', Key? key}) {
@@ -26,7 +26,7 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.yellow[300]!,
         borderColor: Colors.yellow[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.green({String text = 'green', Key? key}) {
@@ -34,7 +34,7 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.green[300]!,
         borderColor: Colors.green[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.brown({String text = 'brown', Key? key}) {
@@ -42,7 +42,7 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.brown[300]!,
         borderColor: Colors.brown[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.pink({String text = 'pink', Key? key}) {
@@ -50,7 +50,7 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.pink[300]!,
         borderColor: Colors.pink[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.orange({String text = 'orange', Key? key}) {
@@ -58,7 +58,7 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.orange[300]!,
         borderColor: Colors.orange[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.teal({String text = 'teal', Key? key}) {
@@ -66,18 +66,18 @@ class Draft extends StatelessWidget {
         text: text,
         color: Colors.teal[300]!,
         borderColor: Colors.teal[700]!,
-        key: key);
+        key: key,);
   }
 
   factory Draft.random(String text, {Key? key}) {
-    Random random = Random();
+    final Random random = Random();
     return Draft(
         text: text,
         color: Color.fromARGB(
-            255, random.nextInt(255), random.nextInt(255), random.nextInt(255)),
+            255, random.nextInt(255), random.nextInt(255), random.nextInt(255),),
         borderColor: Color.fromARGB(
-            255, random.nextInt(255), random.nextInt(255), random.nextInt(255)),
-        key: key);
+            255, random.nextInt(255), random.nextInt(255), random.nextInt(255),),
+        key: key,);
   }
 
   final String text;
@@ -88,8 +88,8 @@ class Draft extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: color, border: Border.all(color: borderColor, width: 1)),
+            color: color, border: Border.all(color: borderColor),),
         child:
-            Center(child: Text(text, style: TextStyle(color: Colors.black))));
+            Center(child: Text(text, style: const TextStyle(color: Colors.black))),);
   }
 }
