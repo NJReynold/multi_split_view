@@ -5,7 +5,7 @@ import 'package:multi_split_view/src/internal/layout_constraints.dart';
 void main() {
   group('LayoutConstraints', () {
     group('Constructor', () {
-      final MultiSplitViewController controller = MultiSplitViewController(areas: []);
+      final MultiSplitViewController controller = MultiSplitViewController(areas: <Area>[]);
 
       test('negative dividerThickness', () {
         expect(() {
@@ -16,7 +16,7 @@ void main() {
               dividerHandleBuffer: 0,);
         },
             throwsA(isA<ArgumentError>()
-                .having((e) => e.name, '', 'dividerThickness'),),);
+                .having((ArgumentError e) => e.name, '', 'dividerThickness'),),);
       });
       test('negative dividerHandleBuffer', () {
         expect(() {
@@ -27,12 +27,12 @@ void main() {
               dividerHandleBuffer: -5,);
         },
             throwsA(isA<ArgumentError>()
-                .having((e) => e.name, '', 'dividerHandleBuffer'),),);
+                .having((ArgumentError e) => e.name, '', 'dividerHandleBuffer'),),);
       });
       test('negative containerSize', () {
         expect(() {
           final MultiSplitViewController controller =
-              MultiSplitViewController(areas: [Area()]);
+              MultiSplitViewController(areas: <Area>[Area()]);
           LayoutConstraints(
               controller: controller,
               containerSize: -10,
@@ -40,11 +40,11 @@ void main() {
               dividerHandleBuffer: 0,);
         },
             throwsA(isA<ArgumentError>()
-                .having((e) => e.name, '', 'containerSize'),),);
+                .having((ArgumentError e) => e.name, '', 'containerSize'),),);
       });
       test('totalDividerSize', () {
         MultiSplitViewController controller =
-            MultiSplitViewController(areas: []);
+            MultiSplitViewController(areas: <Area>[]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -53,7 +53,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .totalDividerSize,
             0,);
-        controller = MultiSplitViewController(areas: [Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -62,7 +62,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .totalDividerSize,
             0,);
-        controller = MultiSplitViewController(areas: [Area(), Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area(), Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -71,7 +71,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .totalDividerSize,
             5,);
-        controller = MultiSplitViewController(areas: [Area(), Area(), Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area(), Area(), Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -80,7 +80,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .totalDividerSize,
             10,);
-        controller = MultiSplitViewController(areas: [
+        controller = MultiSplitViewController(areas: <Area>[
           Area(),
           Area(),
           Area(),
@@ -103,7 +103,7 @@ void main() {
       });
       test('availableSpace', () {
         MultiSplitViewController controller =
-            MultiSplitViewController(areas: []);
+            MultiSplitViewController(areas: <Area>[]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -112,7 +112,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .spaceForAreas,
             100,);
-        controller = MultiSplitViewController(areas: [Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -121,7 +121,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .spaceForAreas,
             100,);
-        controller = MultiSplitViewController(areas: [Area(), Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area(), Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -130,7 +130,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .spaceForAreas,
             95,);
-        controller = MultiSplitViewController(areas: [Area(), Area(), Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area(), Area(), Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,
@@ -139,7 +139,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .spaceForAreas,
             90,);
-        controller = MultiSplitViewController(areas: [
+        controller = MultiSplitViewController(areas: <Area>[
           Area(),
           Area(),
           Area(),
@@ -159,7 +159,7 @@ void main() {
                     dividerHandleBuffer: 0,)
                 .spaceForAreas,
             100,);
-        controller = MultiSplitViewController(areas: [Area(), Area()]);
+        controller = MultiSplitViewController(areas: <Area>[Area(), Area()]);
         expect(
             LayoutConstraints(
                     controller: controller,

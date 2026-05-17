@@ -10,7 +10,7 @@ void main() {
         group('SS', () {
           test('-10 pixels - underflow - max', () {
             final TestHelper helper = TestHelper(
-                areas: [
+                areas: <Area>[
                   Area(data: 'a', size: 50),
                   Area(data: 'b', size: 10, max: 20),
                 ],
@@ -28,7 +28,7 @@ void main() {
           });
           test('10 pixels - underflow - max', () {
             final TestHelper helper = TestHelper(
-                areas: [
+                areas: <Area>[
                   Area(data: 'a', size: 50),
                   Area(data: 'b', size: 10, max: 20),
                 ],
@@ -46,7 +46,7 @@ void main() {
           });
           test('-10 pixels - shrink overflow - min', () {
             final TestHelper helper = TestHelper(
-                areas: [
+                areas: <Area>[
                   Area(data: 'a', size: 50),
                   Area(data: 'b', size: 100, min: 90),
                 ],
@@ -64,7 +64,7 @@ void main() {
           });
           test('10 pixels - shrink overflow - min', () {
             final TestHelper helper = TestHelper(
-                areas: [
+                areas: <Area>[
                   Area(data: 'a', size: 50),
                   Area(data: 'b', size: 100, min: 90),
                 ],
@@ -84,7 +84,7 @@ void main() {
         group('SF', () {
           test('-100 pixels', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', size: 200), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', size: 200), Area(data: 'b', flex: 1)],
                 containerSize: 310,
                 dividerThickness: 10,
                 dividerHandleBuffer: 0,);
@@ -99,7 +99,7 @@ void main() {
           });
           test('1o S +200 pixels over screen limit', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', size: 50), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', size: 50), Area(data: 'b', flex: 1)],
                 containerSize: 105,
                 dividerThickness: 5,
                 dividerHandleBuffer: 0,);
@@ -116,7 +116,7 @@ void main() {
         group('FF', () {
           test('0 pixel', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
                 containerSize: 110,
                 dividerThickness: 10,
                 dividerHandleBuffer: 0,);
@@ -131,7 +131,7 @@ void main() {
           });
           test('-1 pixel', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
                 containerSize: 110,
                 dividerThickness: 10,
                 dividerHandleBuffer: 0,);
@@ -146,7 +146,7 @@ void main() {
           });
           test('1 pixel', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
                 containerSize: 110,
                 dividerThickness: 10,
                 dividerHandleBuffer: 0,);
@@ -161,7 +161,7 @@ void main() {
           });
           test('-200 pixels with rest', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
                 containerSize: 110,
                 dividerThickness: 10,
                 dividerHandleBuffer: 0,);
@@ -176,7 +176,7 @@ void main() {
           });
           test('200 pixels with rest', () {
             final TestHelper helper = TestHelper(
-                areas: [Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
+                areas: <Area>[Area(data: 'a', flex: 1), Area(data: 'b', flex: 1)],
                 containerSize: 110,
                 dividerThickness: 10,
                 dividerHandleBuffer: 0,);
@@ -194,7 +194,7 @@ void main() {
       group('3 areas', () {
         group('SFF', () {
           test('20 pixels - last F collapsed', () {
-            final TestHelper helper = TestHelper(areas: [
+            final TestHelper helper = TestHelper(areas: <Area>[
               Area(data: 'a', size: 100),
               Area(data: 'b', flex: 1),
               Area(data: 'c', flex: 1),
@@ -211,7 +211,7 @@ void main() {
                 data: 'c', min: null, max: null, flex: 1, size: null,);
           });
           test('-20 pixels', () {
-            final TestHelper helper = TestHelper(areas: [
+            final TestHelper helper = TestHelper(areas: <Area>[
               Area(data: 'a', size: 100),
               Area(data: 'b', flex: 1),
               Area(data: 'c', flex: 3),
@@ -230,7 +230,7 @@ void main() {
         });
         group('FSF', () {
           test('-20 pixels', () {
-            final TestHelper helper = TestHelper(areas: [
+            final TestHelper helper = TestHelper(areas: <Area>[
               Area(data: 'a', flex: 1),
               Area(data: 'b', size: 100),
               Area(data: 'c', flex: 3),
@@ -249,7 +249,7 @@ void main() {
         });
         group('SSF', () {
           test('1o S -20 pixels, F collapsed', () {
-            final TestHelper helper = TestHelper(areas: [
+            final TestHelper helper = TestHelper(areas: <Area>[
               Area(data: 'a', size: 50),
               Area(data: 'b', size: 50),
               Area(data: 'c', flex: 1),

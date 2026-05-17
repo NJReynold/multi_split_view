@@ -36,7 +36,7 @@ class MultiSplitViewExampleState extends State<MultiSplitViewExample> {
   @override
   void initState() {
     super.initState();
-    _controller.areas = [
+    _controller.areas = <Area>[
       Area(data: _randomColor(), size: 600, min: 100),
       Area(data: _randomColor(), flex: 1),
       Area(data: _randomColor(), size: 150, min: 100),
@@ -66,7 +66,7 @@ class MultiSplitViewExampleState extends State<MultiSplitViewExample> {
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 10,
         runSpacing: 10,
-        children: [
+        children: <Widget>[
           ElevatedButton(
             onPressed: _onAddFlexButtonClick,
             child: const Text('Add flex'),
@@ -81,7 +81,7 @@ class MultiSplitViewExampleState extends State<MultiSplitViewExample> {
           ),
           Checkbox(
             value: _pushDividers,
-            onChanged: (newValue) => setState(() {
+            onChanged: (bool? newValue) => setState(() {
               _pushDividers = newValue!;
             }),
           ),
@@ -120,7 +120,7 @@ class MultiSplitViewExampleState extends State<MultiSplitViewExample> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Multi Split View Example')),
-      body: Column(children: [buttons, Expanded(child: content)]),
+      body: Column(children: <Widget>[buttons, Expanded(child: content)]),
       // body: horizontal,
     );
   }
@@ -192,7 +192,7 @@ class ColorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = [];
+    final List<Widget> children = <Widget>[];
     const TextStyle textStyle = TextStyle(fontSize: 10);
     if (area.size != null) {
       children.add(Text('size: ${area.size!}', style: textStyle));
@@ -224,7 +224,7 @@ class ColorWidget extends StatelessWidget {
       child: ColoredBox(
         color: color,
         child: Stack(
-          children: [const Placeholder(color: Colors.black), info],
+          children: <Widget>[const Placeholder(color: Colors.black), info],
         ),
       ),
     );

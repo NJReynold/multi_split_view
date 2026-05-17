@@ -10,10 +10,10 @@ import 'package:multi_split_view/src/internal/num_util.dart';
 @internal
 class LayoutConstraints {
   factory LayoutConstraints(
-      {required final MultiSplitViewController controller,
-      required final double containerSize,
-      required final double dividerThickness,
-      required final double dividerHandleBuffer,}) {
+      {required MultiSplitViewController controller,
+      required double containerSize,
+      required double dividerThickness,
+      required double dividerHandleBuffer,}) {
     NumUtil.validateDouble('dividerThickness', dividerThickness);
     NumUtil.validateDouble('dividerHandleBuffer', dividerHandleBuffer);
     NumUtil.validateDouble('containerSize', containerSize);
@@ -30,16 +30,12 @@ class LayoutConstraints {
   }
 
   LayoutConstraints._(
-      {required double containerSize,
+      {required this.containerSize,
       required double dividerThickness,
-      required double dividerHandleBuffer,
-      required double totalDividerSize,
-      required double spaceForAreas,})
-      : containerSize = containerSize,
-        dividerThickness = dividerThickness,
-        dividerHandleBuffer = dividerHandleBuffer,
-        totalDividerSize = totalDividerSize,
-        spaceForAreas = spaceForAreas;
+      required this.dividerHandleBuffer,
+      required this.totalDividerSize,
+      required this.spaceForAreas,})
+      : dividerThickness = dividerThickness;
 
   /// The container size.
   final double containerSize;
@@ -89,7 +85,7 @@ class LayoutConstraints {
 
     bool changed = false;
     double totalSize = 0;
-    final List<Area> minSizeToRecover = [];
+    final List<Area> minSizeToRecover = <Area>[];
     for (final Area area in controllerHelper.areas) {
       if (area.size != null) {
         totalSize += area.size!;

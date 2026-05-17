@@ -153,7 +153,7 @@ class DividerPainter {
     }
 
     if (color != null) {
-      final paint = Paint()
+      final Paint paint = Paint()
         ..style = PaintingStyle.fill
         ..color = color
         ..isAntiAlias = true;
@@ -253,7 +253,7 @@ class _DashedDividerPainter extends DividerPainter {
       } else if (highlighted && highlightedThickness != null) {
         thickness = highlightedThickness!;
       }
-      final paint = Paint()
+      final Paint paint = Paint()
         ..style = PaintingStyle.stroke
         ..color = color
         ..strokeWidth = thickness
@@ -397,7 +397,7 @@ class _GroovedDividerPainter1 extends DividerPainter {
       } else if (highlighted && highlightedSize != null) {
         size = highlightedSize!;
       }
-      final paint = Paint()
+      final Paint paint = Paint()
         ..style = PaintingStyle.stroke
         ..color = color
         ..strokeWidth = thickness
@@ -544,7 +544,7 @@ class _GroovedDividerPainter2 extends DividerPainter {
         count = highlightedCount!;
       }
 
-      final paint = Paint()
+      final Paint paint = Paint()
         ..style = PaintingStyle.stroke
         ..color = color
         ..strokeWidth = thickness

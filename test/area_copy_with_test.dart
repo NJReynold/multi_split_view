@@ -10,32 +10,32 @@ void main() {
         expect(() {
           area.copyWith(size: () => 1, flex: () => 2);
         },
-            throwsA(isA<ArgumentError>().having((e) => e.message, '',
+            throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message, '',
                 'Cannot provide both a size and a flex.',),),);
       });
       test('negative size', () {
         final Area area = Area(size: 2);
         expect(() {
           area.copyWith(size: () => -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'size')),);
+        }, throwsA(isA<ArgumentError>().having((ArgumentError e) => e.name, '', 'size')),);
       });
       test('negative flex', () {
         final Area area = Area(flex: 2);
         expect(() {
           area.copyWith(flex: () => -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'flex')),);
+        }, throwsA(isA<ArgumentError>().having((ArgumentError e) => e.name, '', 'flex')),);
       });
       test('negative min', () {
         final Area area = Area();
         expect(() {
           area.copyWith(min: () => -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'min')),);
+        }, throwsA(isA<ArgumentError>().having((ArgumentError e) => e.name, '', 'min')),);
       });
       test('negative max', () {
         final Area area = Area();
         expect(() {
           area.copyWith(max: () => -1);
-        }, throwsA(isA<ArgumentError>().having((e) => e.name, '', 'max')),);
+        }, throwsA(isA<ArgumentError>().having((ArgumentError e) => e.name, '', 'max')),);
       });
       test('flex', () {
         Area area = Area();

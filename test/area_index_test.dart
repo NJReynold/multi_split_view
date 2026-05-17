@@ -4,7 +4,7 @@ import 'package:multi_split_view/multi_split_view.dart';
 void main() {
   group('Area', () {
     test('Index', () {
-      final List<Area> areas = [Area(data: 'a'), Area(data: 'b'), Area(data: 'c')];
+      final List<Area> areas = <Area>[Area(data: 'a'), Area(data: 'b'), Area(data: 'c')];
       expect(areas[0].index, -1);
       expect(areas[1].index, -1);
       expect(areas[2].index, -1);

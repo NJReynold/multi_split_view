@@ -28,7 +28,7 @@ class MultiSplitViewController extends ChangeNotifier {
     }
   }
 
-  List<Area> _areas = [];
+  List<Area> _areas = <Area>[];
 
   UnmodifiableListView<Area> get areas => UnmodifiableListView(_areas);
 
@@ -63,7 +63,7 @@ class MultiSplitViewController extends ChangeNotifier {
 
   /// Updates the areas.
   void _updateAreas() {
-    final Set<dynamic> ids = {};
+    final Set<dynamic> ids = <dynamic>{};
 
     int index = 0;
     for (final Area area in _areas) {

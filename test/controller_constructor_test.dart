@@ -8,20 +8,20 @@ void main() {
     group('Constructor', () {
       test('Areas', () {
         MultiSplitViewController controller =
-            MultiSplitViewController(areas: [Area(flex: 0, max: 2)]);
+            MultiSplitViewController(areas: <Area>[Area(flex: 0, max: 2)]);
         expect(controller.areasCount, 1);
         TestHelper.testArea(controller.getArea(0),
             data: null, flex: 0, size: null, min: null, max: 2,);
 
         controller = MultiSplitViewController(
-            areas: [Area(flex: 0, max: 2), Area(flex: 0)],);
+            areas: <Area>[Area(flex: 0, max: 2), Area(flex: 0)],);
         expect(controller.areasCount, 2);
         TestHelper.testArea(controller.getArea(0),
             data: null, flex: 0, size: null, min: null, max: 2,);
         TestHelper.testArea(controller.getArea(1),
             data: null, flex: 0, size: null, min: null, max: null,);
 
-        controller = MultiSplitViewController(areas: [
+        controller = MultiSplitViewController(areas: <Area>[
           Area(size: 100, min: 50),
           Area(flex: 0, min: 0),
           Area(flex: 0, max: 2),

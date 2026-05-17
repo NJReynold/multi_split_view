@@ -65,7 +65,7 @@ class _DividerWidgetState extends State<DividerWidget>
         final DividerPainter dividerPainter = widget.themeData.dividerPainter!;
 
         final Map<int, Tween> tweenMap = dividerPainter.buildTween();
-        tweenMap.forEach((key, tween) {
+        tweenMap.forEach((int key, Tween<Object?> tween) {
           animations[key] = tween.animate(controller!);
         });
 
@@ -85,7 +85,7 @@ class _DividerWidgetState extends State<DividerWidget>
     Widget dividerWidget;
     if (widget.themeData.dividerPainter != null) {
       final Map<int, dynamic> animatedValues = <int, dynamic>{};
-      animations.forEach((key, animation) {
+      animations.forEach((int key, Animation<dynamic> animation) {
         animatedValues[key] = animation.value;
       });
 
