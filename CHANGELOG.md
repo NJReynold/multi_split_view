@@ -1,3 +1,7 @@
+## 3.6.2
+
+* Downgrading the `lint` and `meta` version.
+
 ## 3.6.1
 
 * Bugfix
